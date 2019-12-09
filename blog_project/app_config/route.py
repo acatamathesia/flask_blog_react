@@ -1,5 +1,5 @@
 from app_config import app
-from routes import user_route, tag_routes, art_route, login_route
+from routes import user_route, tag_routes, art_route, login_route, com_route
 '''
     问题： 在这里定义文件后，虽然注册了路由，但是没有生效，导致404
     解决： 在app文件中引入route就可以了，相当于默认调用该文件组册了url路径，否则就不会生效
@@ -29,3 +29,8 @@ app.add_url_rule('/pri/art_inf/<int:id>', view_func=art_route.article_info, endp
 app.add_url_rule('/pri/art/<int:id>', view_func=art_route.delete_article, endpoint='art_delete', methods=["DELETE"])
 app.add_url_rule('/pri/art/<int:id>', view_func=art_route.update_article, endpoint='art_update', methods=['POST'])
 
+
+### 评论请求接口
+app.add_url_rule('/pri/com/', view_func=com_route.insert_commont, endpoint='com_insert', methods=['PUT'])
+app.add_url_rule('/pri/com/<int:id>', view_func=com_route.delete_commont, endpoint='com_delete', methods=['DELTE'])
+app.add_url_rule('/pub/com/<int:page_num>', view_func=com_route.commont_page, endpoint='com_find', methods=['GET'])

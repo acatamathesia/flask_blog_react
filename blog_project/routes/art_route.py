@@ -6,11 +6,12 @@ from services import art_services
 def insert_article():
     try:
         params = request.json
-        art_services.insert_article(Article(None, params['title'], session['login_user']['id'], session['login_user']['username'], None,
+        art_services.insert_article(Article(None, params['title'], session['login_user']['id'], session['login_user']['nickname'], None,
                                             None, '0', params['tagId'], None),
                                     ArticleContent(None,params['content']))
         return ResultResp(20000, '添加成功', None).to_resp()
     except Exception as e:
+        print(e)
         return ResultResp(50001,'添加失败！', None).to_resp()
 
 def update_article(id):
@@ -29,6 +30,7 @@ def delete_article(id):
         art_services.delete_article(id)
         return ResultResp(20000, '删除成功', None).to_resp()
     except Exception as e:
+        print(e)
         return ResultResp(50001, '删除失败！', None).to_resp()
 
 def article_info(id):
